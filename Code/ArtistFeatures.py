@@ -5,9 +5,11 @@ import sys
 
 ## Get all files
 root = "/Users/Ashutosh/Documents/Kargo/MillionSongSubset/data"
-
 output = []
 
+## Iterate over all the directories and subdirectories and get
+## the HDF5 file names. Open the file and fetch thre required 
+## from the datasets
 for path, subdirs, files in os.walk(root):
     for name in files:
     	if(name.lower().endswith(".h5")):
@@ -25,6 +27,8 @@ for path, subdirs, files in os.walk(root):
 
             output.append(fileDict)
 
+
+## Write features to file
 outputFile = open("artists.csv","w")
 for x in output:
     outputFile.write(",".join(x) + "\n")

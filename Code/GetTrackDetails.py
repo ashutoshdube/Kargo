@@ -4,11 +4,13 @@ import sys
 from pyspark import SparkContext
 
 
-## Get all files
+## Set the root directort and initialize the record list variable
 root = "/Users/Ashutosh/Documents/Kargo/MillionSongSubset/data"
-
 output = []
 
+## Iterate over all the directories and subdirectories and get
+## the HDF5 file names. Open the file and fetch thre required 
+## from the datasets
 for path, subdirs, files in os.walk(root):
     for name in files:
     	if(name.lower().endswith(".h5")):
@@ -47,11 +49,8 @@ for path, subdirs, files in os.walk(root):
             output.append(fileDict)
 
 
-#print output
-print "Count of Records : " + str(len(output))
-
+## Convert python list to RDD
 sc = SparkContext("local", "Simple App")
-
 fieldRdd = sc.parallelize(output)
 
 
